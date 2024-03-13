@@ -30,7 +30,7 @@ namespace Server
 
         public List<Book> GetAllBooks()
         {
-            throw new NotImplementedException();
+            return new List<Book>(Database.CollectionOfBooks.Values);
         }
 
         public List<Book> GetAllBooksByAuthor(string firstName, string lastName)
@@ -48,12 +48,28 @@ namespace Server
 
         public List<Book> GetBooksByGener(Genre genre)
         {
-            throw new NotImplementedException();
+            List<Book> resultBooks = new List<Book>();
+            foreach (Book book in Database.CollectionOfBooks.Values)
+            {
+                if (book.GenreOfBook.Equals(genre))
+                {
+                    resultBooks.Add(book);
+                }
+            }
+            return resultBooks;
         }
 
         public List<Book> GetBooksByYear(int year)
         {
-            throw new NotImplementedException();
+            List<Book> resultBooks = new List<Book>();
+            foreach (Book book in Database.CollectionOfBooks.Values)
+            {
+                if (book.DateOfPublishing.Year == year)
+                {
+                    resultBooks.Add(book);
+                }
+            }
+            return resultBooks;
         }
     }
 }
