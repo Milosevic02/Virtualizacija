@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +44,26 @@ namespace Zadatak123
             #endregion
 
             #region Zadatak3
+
+            int count = 100000;
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            for (int i = 0; i < count; i++)
+            {
+                list.Contains(-100001);
+            }
+            stopwatch.Stop();
+            Console.WriteLine("List " + stopwatch.Elapsed.TotalMilliseconds);
+            stopwatch.Restart();
+            for (int i = 0; i < count; i++)
+            {
+                set.Contains(-100001);
+            }
+            stopwatch.Stop();
+            Console.WriteLine("HashSet " + stopwatch.Elapsed.TotalMilliseconds);
+
+            #endregion
+
             Console.ReadLine();
         }
     }
