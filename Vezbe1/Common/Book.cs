@@ -51,8 +51,13 @@ namespace Common
         public Genre GenreOfBook { get => genreOfBook; set => genreOfBook = value; }
         [DataMember]
         public DateTime DateOfPublishing { get => dateOfPublishing; set => dateOfPublishing = value; }
-    
-        
-    
+
+        public override string ToString()
+        {
+            return $"ID : {Id} Title : {BookName} Author : {FirstName} {LastName} " +
+                $"Genre : {GenreOfBook} Date : {DateOfPublishing}";
+        }
+
+
     }
 }
