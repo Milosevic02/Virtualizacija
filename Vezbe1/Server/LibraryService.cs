@@ -35,7 +35,15 @@ namespace Server
 
         public List<Book> GetAllBooksByAuthor(string firstName, string lastName)
         {
-            throw new NotImplementedException();
+            List<Book> resultBooks = new List<Book>();
+            foreach (Book book in Database.CollectionOfBooks.Values)
+            {
+                if (book.FirstName == firstName && book.LastName == lastName)
+                {
+                    resultBooks.Add(book);
+                }
+            }
+            return resultBooks;
         }
 
         public List<Book> GetBooksByGener(Genre genre)
