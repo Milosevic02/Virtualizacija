@@ -39,25 +39,6 @@ namespace Client
             proxy.AddNewBook(book9);
             proxy.AddNewBook(book10);
 
-            try
-            {
-                proxy.DeleteBook(4);
-
-            }
-            catch (FaultException<CustomException> e)
-            {
-                Console.WriteLine($"ERROR : {e.Detail.Message}");
-            }
-
-            try
-            {
-                proxy.DeleteBook(25);
-
-            }
-            catch (FaultException<CustomException> e)
-            {
-                Console.WriteLine($"ERROR : {e.Detail.Message}");
-            }
 
             Console.WriteLine("ALL BOOKS");
             PrintAllBooks(proxy.GetAllBooks());
@@ -80,5 +61,5 @@ namespace Client
             Console.WriteLine("----------------------------------------------------------");
         }
     }
-    }
+    
 }
