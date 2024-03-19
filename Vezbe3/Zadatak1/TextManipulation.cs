@@ -50,5 +50,27 @@ namespace Zadatak1
                 disposed = true;
             }
         }
+
+        public void AddTextToFile(string text)
+        {
+            textWriter = File.AppendText(path);
+            textWriter.WriteLine(text);
+            textWriter.Close();
+        }
+
+        public string ReadAllText()
+        {
+            textReader= File.OpenText(path);
+            string text = textReader.ReadToEnd();
+            textReader.Close();
+            return text;
+        }
+
+        public void DeleteText()
+        {
+            File.WriteAllText(path,string.Empty);
+        }
+
+
     }
 }
