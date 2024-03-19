@@ -71,6 +71,27 @@ namespace Zadatak1
             File.WriteAllText(path,string.Empty);
         }
 
+        public Dictionary<string,int> CountWordsInText(params string[] args)
+        {
+            Dictionary<string,int>words = new Dictionary<string,int>();
+            foreach(string word in args)
+            {
+                words.Add(word, 0);
+            }
 
+            string[] allWords = ReadAllText().Replace("\r\n", " ").Replace("\r", " ").Split(' ');
+            foreach(string word in allWords)
+            {
+                foreach (string key in words.Keys)
+                {
+                    if(word == key)
+                    {
+                        words[key]++;
+                    }
+                }
+            }
+            return words;
+
+        }
     }
 }
