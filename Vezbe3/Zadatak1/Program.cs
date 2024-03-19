@@ -12,10 +12,11 @@ namespace Zadatak1
         {
 
             int numberMenu = 0;
-            while(numberMenu != 2)
+            while (numberMenu != 2)
             {
                 numberMenu = printMainMenu();
-                if (numberMenu == 1) {
+                if (numberMenu == 1)
+                {
                     Console.WriteLine("Name of file: ");
                     string path = Console.ReadLine();
                     int functionNumber = 0;
@@ -36,7 +37,6 @@ namespace Zadatak1
                     textManipulation.Dispose();
                 }
             }
- 
 
             Console.ReadLine();
         }

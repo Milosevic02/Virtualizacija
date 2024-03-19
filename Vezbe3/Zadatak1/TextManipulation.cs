@@ -79,10 +79,10 @@ namespace Zadatak1
                 words.Add(word, 0);
             }
 
-            string[] allWords = ReadAllText().Replace("\r\n", " ").Replace("\r", " ").Split(' ');
+            string[] allWords = ReadAllText().Replace("\r\n", " ").Replace("\r", " ").ToLower().Split(' ');
             foreach(string word in allWords)
             {
-                foreach (string key in words.Keys)
+                foreach (string key in args)
                 {
                     if(word == key)
                     {
