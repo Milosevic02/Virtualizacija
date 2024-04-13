@@ -39,6 +39,35 @@ namespace Service
             return results;
         }
 
+        [OperationBehavior(AutoDisposeParameters = true)]
+        public FileManipulationResults SendFile(FileManipulationOptions options)
+        {
+            FileManipulationResults results = new FileManipulationResults();
+            try
+            {
+                var fileDirectoryPath = ConfigurationManager.AppSettings["path"];
+                if (!Directory.Exists(fileDirectoryPath))
+                {
+                    results.ResultType = ResultTypes.Warning;
+                    results.ResultMessage = "There are no directory for you on service";
+                    return results;
+                }
+
+                if(options.MemomoryStream == null || options.MemomoryStream.Length == 0)
+                {
+                    results.ResultType = ResultTypes.Warning;
+                    results.ResultMessage = "Memory stream does not contain data!";
+                    return results;
+                }
+                SaveFile(options.MemomoryStream, $"{fileDirectoryPath}/{options.KeyWord}");
+            }catch(Exception ex)
+            {
+                results.ResultType = ResultTypes.Failed;
+                results.ResultMessage = ex.Message;
+            }
+            return results;
+        }
+
         private void AddMemoryStream(string filePath,string keyWord,FileManipulationResults results)
         {
             string fileName = Path.GetFileName(filePath);
