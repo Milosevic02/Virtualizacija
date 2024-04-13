@@ -13,6 +13,21 @@ namespace Client
         {
         }
 
+        static int PrintMenu()
+        {
+            Console.WriteLine("Select an option");
+            Console.WriteLine("1. Send Files");
+            Console.WriteLine("2. Receive files");
+            Console.WriteLine("3. Exit program");
+            if (Int32.TryParse(Console.ReadLine(), out int number))
+            {
+                if (number >= 1 && number <= 3)
+                {
+                    return number;
+                }
+            }
+            return 0;
+        }
 
         static void ReceiveFilesOption(IFileHandling proxy)
         {
