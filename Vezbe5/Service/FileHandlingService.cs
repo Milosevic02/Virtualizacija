@@ -29,12 +29,14 @@ namespace Service
                 string[] files = Directory.GetFiles(fileDirectoryPath);
                 foreach (string file in files)
                 {
-                    
+                    AddMemoryStream(file, options.KeyWord, results);
                 }
             }catch (Exception ex)
             {
-
+                results.ResultType = ResultTypes.Failed;
+                results.ResultMessage = ex.Message;
             }
+            return results;
         }
 
         private void AddMemoryStream(string filePath,string keyWord,FileManipulationResults results)
@@ -48,6 +50,16 @@ namespace Service
                     fileStream.CopyTo(ms);
                     results.MemoryStremCollection.Add(fileName, ms);
                 }
+            }
+        }
+
+        private void SaveFile(MemoryStream memoryStream,string filePath)
+        {
+            using (FileStream fileStream = new FileStream($"{filePath}", FileMode.Create, FileAccess.Write))
+            {
+                memoryStream.WriteTo(fileStream);
+                fileStream.Dispose();
+                memoryStream.Dispose();
             }
         }
     }
