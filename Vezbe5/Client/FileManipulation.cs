@@ -31,5 +31,42 @@ namespace Client
                 }
             }
         }
+
+        public static MemoryStream GetMemoryStream(string fileName)
+        {
+            var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
+            if(!Directory.Exists(uploadPath))
+            {
+                Console.WriteLine($"Cannot process the file because directory not exists.");
+                return null;
+            }
+
+            MemoryStream memoryStream = new MemoryStream();
+            FileStream fileStream = null;
+            string filePath = $"{uploadPath}/{fileName}";
+            try
+            {
+                fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                fileStream.CopyTo(memoryStream);
+                fileStream.Close();
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine($"Cannot process the file {filePath}. Message: {e.Message}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Something went wrong: {filePath}.  Message: {e.Message}");
+            }
+            finally
+            {
+                if (fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
+            }
+            return memoryStream;
+
+        }
     }
 }
