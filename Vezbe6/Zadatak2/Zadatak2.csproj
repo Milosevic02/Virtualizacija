@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{21B60BA1-15BB-47C7-B858-D07DC1F590C6}</ProjectGuid>
+    <ProjectGuid>{7569DC6F-5891-4D3B-B11C-E36AC67F16A1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Zadatak1</RootNamespace>
-    <AssemblyName>Zadatak1</AssemblyName>
+    <RootNamespace>Zadatak2</RootNamespace>
+    <AssemblyName>Zadatak2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,7 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,8 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlarmGenerator.cs" />
-    <Compile Include="Listener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
