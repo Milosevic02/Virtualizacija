@@ -11,5 +11,13 @@ namespace Zadatak2
         static void Main(string[] args)
         {
         }
+
+
+        static string SubscribtionMenu()
+        {
+            Console.WriteLine("1. Subscribe to text messages");
+            Console.WriteLine("2. Subscribe to email messages");
+            return Console.ReadLine();
+        }
     }
 }
