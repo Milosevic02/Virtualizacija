@@ -10,6 +10,14 @@ namespace Zadatak1
     {
         static void Main(string[] args)
         {
+            Alarm alarm = new Alarm();
+            Student student = new Student();
+
+            alarm.VremeJeZaUstajanje += student.AlarmZvoni;
+
+            alarm.UkljuciAlarm();
+
+            Console.ReadKey();
         }
     }
 }
