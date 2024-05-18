@@ -32,7 +32,7 @@ namespace Zadatak2
         {
             if(ProvuciKarticu != null)
             {
-                ProvuciKarticu(this,new ProvuciKarticuEventArgs(TrenutnaCena,kupac.Kartica))
+                ProvuciKarticu(this, new ProvuciKarticuEventArgs(TrenutnaCena, kupac.Kartica));
             }
         }
 
