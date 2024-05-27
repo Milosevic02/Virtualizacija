@@ -29,7 +29,10 @@ namespace Client
             }
         }
 
-
+        private void FileChanged(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine($"Status:{e.ChangeType} file {e.FullPath} at {DateTime.Now}");
+        }
 
 
     }
