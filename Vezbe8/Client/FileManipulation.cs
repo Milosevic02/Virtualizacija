@@ -34,6 +34,15 @@ namespace Client
             Console.WriteLine($"Status:{e.ChangeType} file {e.FullPath} at {DateTime.Now}");
         }
 
+        private void FileRenamed(object sender, RenamedEventArgs e)
+        {
+            Console.WriteLine($"File was renamed.Old file:{e.OldName},New file:{e.Name},Time: {DateTime.Now}");
+        }
+
+
+
+
+
 
     }
 }
