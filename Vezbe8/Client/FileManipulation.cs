@@ -44,6 +44,22 @@ namespace Client
             Console.WriteLine($"Status: {e.ChangeType} file {e.FullPath} at {DateTime.Now}");
         }
 
+        private void CreateFileSystemWatcher(string path)
+        {
+            inputFileWatcher = new FileSystemWatcher()
+            {
+                Path = path,
+                IncludeSubdirectories = true,
+                InternalBufferSize = 32768,
+                Filter = "*.*",
+                NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite
+            };
+            inputFileWatcher.EnableRaisingEvents = true;
+
+            inputFileWatcher.Changed += FileChanged;
+            inputFileWatcher.Renamed += FileRenamed;
+            inputFileWatcher.Deleted += FileDeleted;    
+
 
 
 
