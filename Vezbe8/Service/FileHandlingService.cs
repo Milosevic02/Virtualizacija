@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,19 @@ namespace Service
     {
         public FileManipulationResults GetFile(FileManipulationOptions options)
         {
-            throw new NotImplementedException();
+            var results = new FileManipulationResults();
+
+            try
+            {
+                var fileDirectoryPath = ConfigurationManager.AppSettings["path"];
+                if (!File.Exists($"{fileDirectoryPath}/{options.SearchedFile}"))
+                {
+                    results.ResultType = ResultTypes.Warning;
+                    results.ResultMessage = "There are no file or directory for you on service";
+                    return results;
+                }
+                AddMemoryStream($"{fileDirectoryPath}/{options.SearchedFile}", options.SearchedFile, results);
+            }
         }
 
         private void AddMemoryStream(string filePath,string keyWord,FileManipulationResults results)
