@@ -26,6 +26,13 @@ namespace Service
                 }
                 AddMemoryStream($"{fileDirectoryPath}/{options.SearchedFile}", options.SearchedFile, results);
             }
+            catch (Exception e)
+            {
+                results.ResultType = ResultTypes.Failed;
+                results.ResultMessage = e.Message;
+            }
+
+            return results;
         }
 
         private void AddMemoryStream(string filePath,string keyWord,FileManipulationResults results)
