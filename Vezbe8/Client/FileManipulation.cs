@@ -15,10 +15,10 @@ namespace Client
 
         public FileManipulation(string path)
         {
-            
+
         }
 
-        public void DownloadFile(FileManipulationResults results,string fileName)
+        public void DownloadFile(FileManipulationResults results, string fileName)
         {
             using (FileStream fileStream = new FileStream($"{filePath}\\{fileName}", FileMode.Create, FileAccess.Write))
             {
@@ -58,7 +58,8 @@ namespace Client
 
             inputFileWatcher.Changed += FileChanged;
             inputFileWatcher.Renamed += FileRenamed;
-            inputFileWatcher.Deleted += FileDeleted;    
+            inputFileWatcher.Deleted += FileDeleted;
+        } 
 
 
 
