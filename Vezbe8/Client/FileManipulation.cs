@@ -39,7 +39,10 @@ namespace Client
             Console.WriteLine($"File was renamed.Old file:{e.OldName},New file:{e.Name},Time: {DateTime.Now}");
         }
 
-
+        private void FileDeleted(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine($"Status: {e.ChangeType} file {e.FullPath} at {DateTime.Now}");
+        }
 
 
 
