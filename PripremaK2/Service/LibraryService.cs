@@ -50,25 +50,47 @@ namespace Service
             }
         }
 
+        private void DatabaseSetUp()
+        {
+            string[] files = Directory.GetFiles(fileDirectoryPath);
+            foreach (string file in files)
+            {
+                Database.CollectionOfBooks.Add(Path.GetFileName(file),new Book(Path.GetFileName(file).Split('.')[0]));
+            }
+        }
+        public List<Book> GetAllBooks()
+        {
+            if(Database.CollectionOfBooks.Count == 0)
+            {
+                DatabaseSetUp();
+            }
+            return new List<Book>(Database.CollectionOfBooks.Values);
+        }
 
         public void ChangeScore(string title, int score)
         {
-            throw new NotImplementedException();
+            if(Database.CollectionOfBooks.TryGetValue(title, out Book book))
+            {
+                if(BookScoreChanged != null)
+                {
+                    BookScoreChanged(this,new BookEventArgs(book.Title,book.Score,score));
+                    book.Score = score;
+                }
+                return;
+            }
+            throw new FaultException<CustomException>(new CustomException($"Book {title} not found"));
         }
 
-        public List<Book> GetAllBooks()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public void Subscribe()
         {
-            throw new NotImplementedException();
+            BookScoreChanged += subscriber.OnRatingChanged;
         }
 
         public void Unsubscribe()
         {
-            throw new NotImplementedException();
+            BookScoreChanged -= subscriber.OnRatingChanged;
         }
     }
 }
