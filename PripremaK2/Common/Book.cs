@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    public delegate void BookScoreHandler(object sender, BookEventArgs e);
+
     [DataContract]
     public class Book
     {
