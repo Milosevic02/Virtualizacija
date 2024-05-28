@@ -12,7 +12,7 @@ namespace Common
     {
         [OperationContract]
         [FaultContract(typeof(CustomException))]
-        void AddBookRecomendation(FileManipulationOptions options);
+        void AddBookRecommendation(FileManipulationOptions options);
 
         [OperationContract]
         List<Book>GetAllBooks();
