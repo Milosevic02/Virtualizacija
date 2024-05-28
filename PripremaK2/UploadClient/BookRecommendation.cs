@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,22 +20,20 @@ namespace UploadClient
             this.proxy = sender;
         }
 
-        private void CreateFileSystemWatcher(string path)
+
+
+        private void SendFile(string filePath,string fileName)
         {
-            fileWatcher = new FileSystemWatcher()
+            try
             {
-                Path = path,
-                Filter = "*.*",
-                NotifyFilter = NotifyFilters.LastWrite
-            };
+                proxy.AddBookRecommendation(new FileManipulationOptions(GetMemoryStream(filePath), fileName));
+                Console.WriteLine($"Recommendation for {filePath} modified at {DateTime.Now}");
 
-            fileWatcher.Changed += FileChanged;
-            fileWatcher.EnableRaisingEvents = true;
-        }
-
-        private void FileChanged(object sender, FileSystemEventArgs e)
-        {
-            
+            }
+            catch (FaultException<CustomException> ex)
+            {
+                Console.WriteLine($"ERROR : {ex.Detail.Message}");
+            }
         }
 
 
