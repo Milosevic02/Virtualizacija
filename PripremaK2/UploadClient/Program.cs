@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +14,34 @@ namespace UploadClient
     {
         static void Main(string[] args)
         {
+            ChannelFactory<ILibrary> factory = new ChannelFactory<ILibrary>("Library");
+            ILibrary proxy = factory.CreateChannel();
+
+            var uploadPath = ConfigurationManager.AppSettings["uploadPath"];
+
+            if (!Directory.Exists(uploadPath))
+            {
+                Directory.CreateDirectory(uploadPath);
+            }
+
+            BookRecommendation bookRecommendation = new BookRecommendation(uploadPath, proxy);
+
+            int selectedNumber;
+            do
+            {
+                selectedNumber = PrintMenu();
+                switch (selectedNumber)
+                {
+                    case 0:
+                        Console.WriteLine("You need to select existing option");
+                        break;
+                    case 1:
+                        bookRecommendation.CreateFile(uploadPath);
+                        break;
+                }
+            }
+            while (selectedNumber != 2);
+            Console.ReadKey();
         }
 
         static int PrintMenu()
