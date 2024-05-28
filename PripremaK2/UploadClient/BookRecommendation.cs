@@ -20,7 +20,18 @@ namespace UploadClient
             this.proxy = sender;
         }
 
+        private void CreateFileSystemWatcher(string path)
+        {
+            fileWatcher = new FileSystemWatcher()
+            {
+                Path = path,
+                Filter = "*.*",
+                NotifyFilter = NotifyFilters.LastWrite
+            };
 
+            fileWatcher.Changed += FileChanged;
+            fileWatcher.EnableRaisingEvents = true;
+        }
 
         private void FileChanged(object sender, FileSystemEventArgs e)
         {
