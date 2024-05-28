@@ -22,6 +22,19 @@ namespace UploadClient
 
 
 
+        private void FileChanged(object sender, FileSystemEventArgs e)
+        {
+            try
+            {
+                SendFile(e.FullPath, e.Name);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR : {ex}");
+            }
+
+        }
+
         private void SendFile(string filePath,string fileName)
         {
             try
