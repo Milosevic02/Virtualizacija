@@ -22,7 +22,7 @@ namespace Service
         {
             try
             {
-                if (!Directory.Exists(fileDirectoryPath)
+                if (!Directory.Exists(fileDirectoryPath))
                 {
                     Directory.CreateDirectory(fileDirectoryPath);
                 }
@@ -39,6 +39,17 @@ namespace Service
 
             }
         }
+
+        private void SaveFile(MemoryStream memoryStream, string filePath)
+        {
+            using(FileStream fileStream = new FileStream($"{filePath}",FileMode.Create,FileAccess.Write))
+            {
+                memoryStream.WriteTo(fileStream);
+                fileStream.Dispose();
+                memoryStream.Dispose();
+            }
+        }
+
 
         public void ChangeScore(string title, int score)
         {
