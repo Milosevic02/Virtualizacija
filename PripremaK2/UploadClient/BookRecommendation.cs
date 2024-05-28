@@ -20,6 +20,22 @@ namespace UploadClient
             this.proxy = sender;
         }
 
+        public void CreateFile(string uploadPath)
+        {
+            Console.WriteLine("Enter book title as title.txt: ");
+            string bookTitle = Console.ReadLine();
+            try
+            {
+                using (var fs = File.Create(Path.Combine(uploadPath, bookTitle)))
+                {
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"ERROR : {e}");
+            }
+        }
+
         private void CreateFileSystemWatcher(string path)
         {
             fileWatcher = new FileSystemWatcher()
