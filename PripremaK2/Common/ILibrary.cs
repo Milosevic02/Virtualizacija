@@ -15,11 +15,11 @@ namespace Common
         void AddBookRecommendation(FileManipulationOptions options);
 
         [OperationContract]
-        List<Book>GetAllBooks();
+        List<Book> GetAllBooks();
 
         [OperationContract]
         [FaultContract(typeof(CustomException))]
-        void ChangeScore(string title,int score);
+        void ChangeScore(string title, int score);
 
         [OperationContract]
         void Subscribe();

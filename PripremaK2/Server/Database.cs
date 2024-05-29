@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Server
 {
     public class Database
     {
@@ -16,7 +16,6 @@ namespace Service
             collectionOfBooks = new Dictionary<string, Book>();
         }
 
-        public static Dictionary<string,Book>CollectionOfBooks { get { return collectionOfBooks; } }
-
+        public static Dictionary<string, Book> CollectionOfBooks { get { return collectionOfBooks; } }
     }
 }

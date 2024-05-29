@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -13,8 +14,8 @@ namespace UploadClient
     {
         private FileSystemWatcher fileWatcher;
         private readonly ILibrary proxy;
-
-        public BookRecommendation(string path,ILibrary sender)
+        
+        public BookRecommendation(string path, ILibrary sender)
         {
             CreateFileSystemWatcher(path);
             this.proxy = sender;
@@ -59,27 +60,26 @@ namespace UploadClient
             {
                 Console.WriteLine($"ERROR : {ex}");
             }
-
         }
 
-        private void SendFile(string filePath,string fileName)
+        private void SendFile(string filePath, string fileName)
         {
             try
             {
                 proxy.AddBookRecommendation(new FileManipulationOptions(GetMemoryStream(filePath), fileName));
-                Console.WriteLine($"Recommendation for {filePath} modified at {DateTime.Now}");
-
+                Console.WriteLine($"Recommondation for {filePath} modified at {DateTime.Now}");
             }
             catch (FaultException<CustomException> ex)
             {
                 Console.WriteLine($"ERROR : {ex.Detail.Message}");
             }
+
         }
 
-
-        public static MemoryStream GetMemoryStream(string path)
+        public static MemoryStream GetMemoryStream(string filePath)
         {
-            if(!File.Exists(path))
+            
+            if (!File.Exists(filePath))
             {
                 Console.WriteLine($"Cannot process the file because directory not exists.");
                 return null;
@@ -89,21 +89,22 @@ namespace UploadClient
             FileStream fileStream = null;
             try
             {
-                fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+                fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
                 fileStream.CopyTo(memoryStream);
                 fileStream.Close();
+
             }
             catch (IOException e)
             {
-                Console.WriteLine($"Cannot process the file {path}. Message: {e.Message}");
+                Console.WriteLine($"Cannot process the file {filePath}. Message: {e.Message}");
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Something went wrong: {path}.  Message: {e.Message}");
+                Console.WriteLine($"Something went wrong: {filePath}.  Message: {e.Message}");
             }
             finally
             {
-                if( fileStream != null)
+                if (fileStream != null)
                 {
                     fileStream.Dispose();
                 }
@@ -112,3 +113,4 @@ namespace UploadClient
         }
     }
 }
+

@@ -8,7 +8,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Server
 {
     public class LibraryService : ILibrary
     {
@@ -17,6 +17,7 @@ namespace Service
 
         private readonly string fileDirectoryPath = ConfigurationManager.AppSettings["bookPath"];
 
+        #region AddBookRecommendation
         [OperationBehavior(AutoDisposeParameters = true)]
         public void AddBookRecommendation(FileManipulationOptions options)
         {
@@ -27,45 +28,52 @@ namespace Service
                     Directory.CreateDirectory(fileDirectoryPath);
                 }
 
-                if(options.MemoryStream == null || options.MemoryStream.Length == 0)
+                if (options.MemomoryStream == null || options.MemomoryStream.Length == 0)
                 {
                     throw new FaultException<CustomException>(new CustomException($"No content provided for book {options.FileName}"));
                 }
 
-                SaveFile(options.MemoryStream,$"{fileDirectoryPath}/{options.FileName}");
-            }catch (Exception ex)
+                SaveFile(options.MemomoryStream, $"{fileDirectoryPath}/{options.FileName}");
+            }
+            catch (Exception ex)
             {
                 throw new FaultException<CustomException>(new CustomException(ex.Message));
-
             }
         }
 
         private void SaveFile(MemoryStream memoryStream, string filePath)
         {
-            using(FileStream fileStream = new FileStream($"{filePath}",FileMode.Create,FileAccess.Write))
+            using (FileStream fileStream = new FileStream($"{filePath}", FileMode.Create, FileAccess.Write))
             {
                 memoryStream.WriteTo(fileStream);
                 fileStream.Dispose();
                 memoryStream.Dispose();
             }
-        }
 
+        }
+        #endregion method
+
+        #region GetAllBooks
         private void DatabaseSetUp()
         {
-            string[] files = Directory.GetFiles(fileDirectoryPath);
-            foreach (string file in files)
-            {
-                Database.CollectionOfBooks.Add(Path.GetFileName(file),new Book(Path.GetFileName(file).Split('.')[0]));
-            }
+                string[] files = Directory.GetFiles(fileDirectoryPath);
+                foreach (string filePath in files)
+                {
+                    Database.CollectionOfBooks.Add(Path.GetFileName(filePath), new Book(Path.GetFileName(filePath).Split('.')[0]));
+                }
         }
+
         public List<Book> GetAllBooks()
         {
             if(Database.CollectionOfBooks.Count == 0)
             {
                 DatabaseSetUp();
             }
+           
             return new List<Book>(Database.CollectionOfBooks.Values);
         }
+        #endregion
+
 
         public void ChangeScore(string title, int score)
         {
@@ -73,24 +81,24 @@ namespace Service
             {
                 if(BookScoreChanged != null)
                 {
-                    BookScoreChanged(this,new BookEventArgs(book.Title,book.Score,score));
+                    BookScoreChanged(this, new BookEventArgs(book.Title, book.Score, score));
                     book.Score = score;
                 }
                 return;
             }
             throw new FaultException<CustomException>(new CustomException($"Book {title} not found"));
+
         }
-
-
 
         public void Subscribe()
         {
-            BookScoreChanged += subscriber.OnRatingChanged;
+            BookScoreChanged += subscriber.OnRaitingChanged;
         }
 
         public void Unsubscribe()
         {
-            BookScoreChanged -= subscriber.OnRatingChanged;
+            BookScoreChanged -= subscriber.OnRaitingChanged;
         }
     }
 }
+

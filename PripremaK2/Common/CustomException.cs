@@ -12,8 +12,8 @@ namespace Common
     {
         string message;
 
-        public CustomException(string message) {
-            
+        public CustomException(string message)
+        {
             this.Message = message;
         }
 

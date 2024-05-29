@@ -9,35 +9,34 @@ using System.Threading.Tasks;
 namespace Common
 {
     [DataContract]
-    public class FileManipulationOptions
+    public class FileManipulationOptions : IDisposable
     {
-        public FileManipulationOptions(MemoryStream memoryStream,string fileName) { 
-        
-            this.MemoryStream = memoryStream;
+        public FileManipulationOptions(MemoryStream memomoryStream, string fileName)
+        {
+            this.MemomoryStream = memomoryStream;
             this.FileName = fileName;
         }
 
         [DataMember]
-        public MemoryStream MemoryStream {  get; set; }
+        public MemoryStream MemomoryStream { get; set; }
 
-        [DataMember] 
+        [DataMember]
         public string FileName { get; set; }
 
         public void Dispose()
         {
-            if(MemoryStream == null) return;
-
+            if (MemomoryStream == null)
+                return;
             try
             {
-                MemoryStream.Dispose();
-                MemoryStream.Close();
-                MemoryStream = null;
-            }catch(Exception) {
-
-                Console.WriteLine("Unsuccessful disposing");
+                MemomoryStream.Dispose();
+                MemomoryStream.Close();
+                MemomoryStream = null;
             }
-
+            catch (Exception)
+            {
+                Console.WriteLine("Unsuccesful disposing!");
+            }
         }
-
     }
 }

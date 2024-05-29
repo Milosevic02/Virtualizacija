@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Server
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            using(ServiceHost host = new ServiceHost(typeof(LibraryService)))
+            using (ServiceHost host = new ServiceHost(typeof(LibraryService)))
             {
                 host.Open();
 
@@ -24,7 +25,5 @@ namespace Service
             Console.WriteLine("Service is closed");
             Console.ReadKey();
         }
-    
-        
     }
 }
