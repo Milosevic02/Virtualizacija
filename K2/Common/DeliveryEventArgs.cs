@@ -9,15 +9,15 @@ namespace Common
     public class DeliveryEventArgs:EventArgs
     {
         private int id;
-        private int tips;
+        private int fee;
 
-        public DeliveryEventArgs(int id, int tips)
+        public DeliveryEventArgs(int id, int fee)
         {
             this.id = id;
-            this.tips = tips;
+            this.fee = fee;
         }
 
         public int Id { get { return id; } set { id = value; } }
-        public int Tips { get { return tips; } set { tips = value; } }
+        public int Tips { get { return fee; } set { fee = value; } }
     }
 }
